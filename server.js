@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("✅ API working on Render!");
+});
+
 // Routes
 app.use('/api/business', require('./routes/businessRoutes'));
 app.use('/api/items', require('./routes/itemRoutes'));
