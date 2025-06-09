@@ -8,7 +8,6 @@ router.post('/', auth, async (req, res) => {
   try {
     const {
       type,
-      referenceId,
       amount,
       businessId,
       description
@@ -16,11 +15,10 @@ router.post('/', auth, async (req, res) => {
 
     const newTransaction = new Transaction({
       type,
-      referenceId,
       amount,
       businessId,
       description,
-      createdBy: req.user._id
+      createdBy: req.user.id
     });
 
     const saved = await newTransaction.save();

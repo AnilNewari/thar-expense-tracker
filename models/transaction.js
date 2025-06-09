@@ -6,10 +6,16 @@ const transactionSchema = new mongoose.Schema({
     enum: ['sale', 'expense', 'investment', 'income'],
     required: true
   },
-  referenceId: { type: mongoose.Schema.Types.ObjectId, default: null }, // Optional
   amount: { type: Number, required: true },
   createdAt: { type: Date, default: Date.now },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  createdDate: {
+    type: String,
+    default: () => {
+      const now = new Date();
+      return now.toISOString().split("T")[0]; // YYYY-MM-DD
+    },
+  },
   businessId: { type: mongoose.Schema.Types.ObjectId, ref: 'Business', required: true },
   description: { type: String }
 });

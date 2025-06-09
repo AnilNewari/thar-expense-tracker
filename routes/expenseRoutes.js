@@ -13,7 +13,7 @@ router.post('/', auth, async (req, res) => {
       businessId
     } = req.body;
 
-    const userId = req.user._id;
+    const userId = req.user.id;
 
     const newExpense = new Expense({
       itemId,
@@ -37,7 +37,6 @@ router.get('/', auth, async (req, res) => {
     const expenses = await Expense.find()
       .populate('itemId', 'itemName itemUnit')
       .populate('createdBy', 'username')
-      .populate('lastUpdatedBy', 'username')
       .populate('businessId', 'title');
     res.json(expenses);
   } catch (err) {
@@ -73,7 +72,7 @@ router.put('/:id', auth, async (req, res) => {
         quantity,
         businessId,
         updatedAt: new Date(),
-        lastUpdatedBy: req.user._id
+        lastUpdatedBy: req.user.id
       },
       { new: true }
     );
